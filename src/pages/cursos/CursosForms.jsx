@@ -1,47 +1,52 @@
 import React from 'react'
 import { Col, Form, Row, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
-import { FaCheckDouble, FaAngleDoubleLeft } from 'react-icons/fa';
+import { useForm } from 'react-hook-form'
+import { FaArrowLeft, FaCheck } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import Box from '../../components/Box'
-import { useForm } from 'react-hook-form';
+import CursosService from '../../services/academico/CursosService'
+import validador from '../../validators/CursosValidator'
 
-const CursosForms = () => {
+
+const CursosForms = (props) => {
 
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     function enviarDados(dados) {
-        console.log(dados);
+        CursosService.create(dados)
+        props.history.push('/cursos')
     }
+
+
     return (
         <>
-         <h1>Página Cursos</h1>
             <Box title="Cursos">
                 <Form>
                     <Form.Group as={Row} className="mb-3" controlId="nome">
                         <Form.Label column sm={2}> Nome :</Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" {...register("nome", { required: true })} />
-                            {errors.nome && <span className="text-danger">Campo Obrigatório</span>}
+                            <Form.Control type="text" {...register("nome", validador.nome)} />
+                            {errors.nome && <span className="text-danger">{errors.nome.message}</span>}
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="duracao">
-                        <Form.Label column sm={2}> Duração : </Form.Label>
+                        <Form.Label column sm={2}> Duração: </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="number" {...register("duracao", { required: true })} />
-                            {errors.duracao && <span className="text-danger">Campo Obrigatório</span>}
+                            <Form.Control type="text" {...register("duracao", validador.duracao)} />
+                            {errors.duracao && <span className="text-danger">{errors.duracao.message}</span>}
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlId="modalidade">
-                        <Form.Label column sm={2}> Modalidade : </Form.Label>
+                        <Form.Label column sm={2}> Modalidade </Form.Label>
                         <Col sm={10}>
-                            <Form.Control type="text" {...register("modalidade", { required: true })} />
-                            {errors.modalidade && <span className="text-danger">Campo Obrigatório</span>}
+                            <Form.Control type="text" {...register("modalidade", validador.modalidade)} />
+                            {errors.modalidade && <span className="text-danger">{errors.modalidade.message}</span>}
                         </Col>
                     </Form.Group>
                     <div className="text-center">
-                        <Button variant="dark" onClick={handleSubmit(enviarDados)}> <FaCheckDouble /> Salvar </Button>
-                        <Link className="btn btn-secondary ml-3" to="/alunos"><FaAngleDoubleLeft /> Voltar</Link>
+                        <Button variant="primary" onClick={handleSubmit(enviarDados)}> <FaCheck /> Salvar </Button>
+                        <Link className="btn btn-secondary ml-3" to="/cursos"><FaArrowLeft /> Voltar</Link>
                     </div>
                 </Form>
             </Box>

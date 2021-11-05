@@ -10,10 +10,9 @@ const Menu = () => {
                     <Navbar.Brand href="#home">Acadêmico Ledy</Navbar.Brand>
                     <Nav className="me-auto">
                     <Link className="nav-link" to="/alunos">Alunos</Link>
-                        <Link className="nav-link" to="/cursos">Cursos</Link>
                         <Link className="nav-link" to="/professores">Professores</Link>
                         <Link className="nav-link" to="/disciplinas">Disciplinas</Link>
-
+                        <Link className="nav-link" to="/cursos">Cursos</Link>
                     </Nav>
                 </Container>
             </Navbar>
